@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>むさぽ マーケティング戦略提案</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', 'Hiragino Sans', sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.7; }
+
+  .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 80px 40px; text-align: center; border-bottom: 3px solid #e94560; }
+  .hero h1 { font-size: 2.8em; color: #fff; margin-bottom: 12px; letter-spacing: 2px; }
+  .hero .subtitle { font-size: 1.4em; color: #e94560; font-weight: 600; }
+  .hero .author { margin-top: 24px; color: #888; font-size: 0.95em; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  section { padding: 60px 0; border-bottom: 1px solid #222; }
+  section:last-child { border-bottom: none; }
+
+  h2 { font-size: 1.8em; color: #e94560; margin-bottom: 32px; padding-left: 16px; border-left: 4px solid #e94560; }
+  h3 { font-size: 1.3em; color: #fff; margin: 28px 0 16px; }
+  h4 { font-size: 1.1em; color: #ccc; margin: 20px 0 12px; }
+
+  p { margin-bottom: 16px; color: #bbb; }
+  .highlight { color: #e94560; font-weight: 700; }
+  .white { color: #fff; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 24px 0; }
+  .stat-card { background: #151520; border: 1px solid #2a2a3a; border-radius: 12px; padding: 24px; text-align: center; }
+  .stat-card .number { font-size: 2.2em; font-weight: 800; color: #e94560; }
+  .stat-card .label { font-size: 0.85em; color: #888; margin-top: 4px; }
+  .stat-card.green .number { color: #00d26a; }
+  .stat-card.yellow .number { color: #f5a623; }
+
+  .trend-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+  .trend-table th, .trend-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #222; }
+  .trend-table th { color: #888; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; }
+  .trend-table td { color: #ccc; }
+  .trend-table .peak { color: #00d26a; font-weight: 700; }
+  .trend-table .danger { color: #e94560; font-weight: 700; }
+  .trend-table .warn { color: #f5a623; }
+
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
+  .ba-card { background: #151520; border-radius: 12px; padding: 24px; }
+  .ba-card.before { border-left: 4px solid #e94560; }
+  .ba-card.after { border-left: 4px solid #00d26a; }
+  .ba-card .tag { font-size: 0.8em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .ba-card.before .tag { color: #e94560; }
+  .ba-card.after .tag { color: #00d26a; }
+
+  .funnel { margin: 32px 0; }
+  .funnel-layer { background: #151520; border-radius: 12px; padding: 24px 28px; margin-bottom: 16px; border-left: 4px solid; }
+  .funnel-layer:nth-child(1) { border-color: #e94560; }
+  .funnel-layer:nth-child(2) { border-color: #f5a623; }
+  .funnel-layer:nth-child(3) { border-color: #3498db; }
+  .funnel-layer:nth-child(4) { border-color: #00d26a; }
+  .funnel-layer .layer-title { font-size: 1.15em; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .funnel-layer .channels { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .funnel-layer .ch { background: #1a1a2e; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; color: #aaa; }
+
+  .pricing { margin: 32px 0; }
+  .plan { background: #151520; border-radius: 16px; padding: 32px; margin-bottom: 20px; border: 1px solid #2a2a3a; position: relative; }
+  .plan.recommended { border-color: #e94560; }
+  .plan.recommended::after { content: 'おすすめ'; position: absolute; top: -12px; right: 24px; background: #e94560; color: #fff; padding: 4px 16px; border-radius: 20px; font-size: 0.8em; font-weight: 700; }
+  .plan-name { font-size: 1.4em; font-weight: 800; color: #fff; margin-bottom: 8px; }
+  .plan-desc { color: #888; font-size: 0.95em; margin-bottom: 20px; }
+  .plan-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1a1a2e; }
+  .plan-row .label { color: #888; }
+  .plan-row .value { color: #fff; font-weight: 600; }
+  .plan-sim { background: #1a1a2e; border-radius: 8px; padding: 16px; margin-top: 16px; }
+  .plan-sim .sim-title { font-size: 0.85em; color: #888; margin-bottom: 8px; }
+  .sim-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 0.9em; }
+  .sim-row .scenario { color: #aaa; }
+  .sim-row .amount { color: #00d26a; font-weight: 600; }
+  .sim-row .amount.zero { color: #666; }
+
+  .fc-section { background: linear-gradient(135deg, #1a1a2e, #0f3460); border-radius: 16px; padding: 40px; margin: 32px 0; }
+  .fc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+  .fc-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 24px; }
+  .fc-card h4 { color: #e94560; margin-top: 0; }
+
+  .timeline { margin: 32px 0; }
+  .tl-item { display: flex; gap: 20px; margin-bottom: 24px; }
+  .tl-dot { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85em; flex-shrink: 0; }
+  .tl-item:nth-child(1) .tl-dot { background: #e94560; color: #fff; }
+  .tl-item:nth-child(2) .tl-dot { background: #f5a623; color: #fff; }
+  .tl-item:nth-child(3) .tl-dot { background: #3498db; color: #fff; }
+  .tl-item:nth-child(4) .tl-dot { background: #00d26a; color: #fff; }
+  .tl-content { flex: 1; }
+  .tl-content .tl-title { font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .tl-content .tl-period { font-size: 0.85em; color: #888; }
+  .tl-content ul { margin-top: 8px; padding-left: 20px; }
+  .tl-content li { color: #aaa; font-size: 0.9em; margin-bottom: 4px; }
+
+  .cta { background: linear-gradient(135deg, #e94560, #c0392b); padding: 48px; border-radius: 16px; text-align: center; margin: 40px 0; }
+  .cta h2 { border: none; padding: 0; color: #fff; text-align: center; }
+  .cta p { color: rgba(255,255,255,0.85); font-size: 1.1em; }
+
+  .footer { text-align: center; padding: 40px; color: #555; font-size: 0.85em; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.8em; }
+    .before-after, .fc-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>むさぽ マーケティング戦略</h1>
+  <div class="subtitle">データが見えれば、売上は戻せる</div>
+  <div class="author">2026年3月 | 大竹ひろと（ikigai Inc.）</div>
+</div>
+
+<div class="container">
+
+<!-- 現状 -->
+<section>
+  <h2>渋谷店の現実</h2>
+  <p>半年で売上が <span class="highlight">37%ダウン</span>。ピーク時¥1,106万 → 現在¥694万。3月はさらに悪化ペース。</p>
+
+  <div class="stat-grid">
+    <div class="stat-card green">
+      <div class="number">¥1,106万</div>
+      <div class="label">ピーク（2025年8月）</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">¥694万</div>
+      <div class="label">直近（2026年2月）</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">▲37%</div>
+      <div class="label">6ヶ月間の下落率</div>
+    </div>
+    <div class="stat-card yellow">
+      <div class="number">¥730万</div>
+      <div class="label">損益分岐点</div>
+    </div>
+  </div>
+
+  <table class="trend-table">
+    <tr><th>月</th><th>売上</th><th>目標比</th><th>状態</th></tr>
+    <tr><td>2025年8月</td><td class="peak">¥11,060,152</td><td class="peak">105%</td><td class="peak">ピーク</td></tr>
+    <tr><td>2025年9月</td><td>¥9,822,352</td><td>98%</td><td>-</td></tr>
+    <tr><td>2025年10月</td><td>¥9,391,431</td><td>94%</td><td class="warn">↓</td></tr>
+    <tr><td>2025年11月</td><td>¥8,777,610</td><td>82%</td><td class="warn">↓</td></tr>
+    <tr><td>2025年12月</td><td>¥8,290,768</td><td>77%</td><td class="warn">↓</td></tr>
+    <tr><td>2026年1月</td><td>¥8,622,025</td><td>80%</td><td>横ばい</td></tr>
+    <tr><td>2026年2月</td><td class="danger">¥6,935,337</td><td class="danger">66%</td><td class="danger">赤字</td></tr>
+    <tr><td>2026年3月</td><td class="danger">¥3,091,444</td><td class="danger">29%*</td><td class="danger">悪化中</td></tr>
+  </table>
+  <p style="font-size: 0.85em; color: #666;">*3月は19日時点の途中経過</p>
+
+  <h3>何が起きているか</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="number">¥5,728</div>
+      <div class="label">客単価は維持 → 質は落ちてない</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">1,160人</div>
+      <div class="label">客数激減（ピーク2,046人の57%）</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">80人</div>
+      <div class="label">新規が半減（目標156人の51%）</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">▲¥72万</div>
+      <div class="label">2月の営業赤字</div>
+    </div>
+  </div>
+</section>
+
+<!-- 問題の本質 -->
+<section>
+  <h2>なぜ売上が落ちているか「分からない」</h2>
+  <p>客数が減っていることは分かる。しかし <span class="white">「なぜ減っているか」が分からない</span>。</p>
+
+  <div class="before-after">
+    <div class="ba-card before">
+      <div class="tag">× 今の状態</div>
+      <p>「今月の売上¥694万、客数1,160人」</p>
+      <p>「新規が少ない」</p>
+      <p>「イベントやったけど効果あったのか不明」</p>
+      <p>「木曜が弱い」</p>
+    </div>
+    <div class="ba-card after">
+      <div class="tag">○ データ連携後</div>
+      <p>「常連が先月比▲15%、休眠+200人」</p>
+      <p>「MEO経由の新規が▲40%。口コミ更新が止まっていた」</p>
+      <p>「nihao企画の参加者LTV ¥12万。通常新規の4倍」</p>
+      <p>「木曜は新規率5%。常連のみで回っている」</p>
+    </div>
+  </div>
+
+  <p style="text-align: center; font-size: 1.2em; margin-top: 32px;">
+    <span class="white">スマレジ連携でLTVが見えれば、原因が特定でき、施策が打てる。</span>
+  </p>
+</section>
+
+<!-- ファネル -->
+<section>
+  <h2>マーケティングファネル設計</h2>
+  <p>集客を4層で設計。各層にチャネル・施策・KPIを紐づける。</p>
+
+  <div class="funnel">
+    <div class="funnel-layer">
+      <div class="layer-title">Layer 1: 新規獲得（初心者講習・初来店CP）</div>
+      <p>ポーカー未経験者を初来店させる。新規は目標の51%まで落ちている。</p>
+      <div class="channels">
+        <span class="ch">広告（Meta/Google）</span>
+        <span class="ch">自社SNS（X/Instagram）</span>
+        <span class="ch">インフルエンサー</span>
+        <span class="ch">SEO</span>
+        <span class="ch">MEO ← 最優先</span>
+      </div>
+    </div>
+    <div class="funnel-layer">
+      <div class="layer-title">Layer 2: ポーカー好き獲得（顕在層の取り込み）</div>
+      <p>他店で遊んでいる層をむさぽに引き込む。</p>
+      <div class="channels">
+        <span class="ch">X（Twitter）</span>
+        <span class="ch">MEO</span>
+        <span class="ch">AIO（AI検索対策）</span>
+        <span class="ch">トーナメント</span>
+      </div>
+    </div>
+    <div class="funnel-layer">
+      <div class="layer-title">Layer 3: むさぽ指名検索獲得（ブランド認知）</div>
+      <p>「ポーカーならむさぽ」という想起を作る。</p>
+      <div class="channels">
+        <span class="ch">MEO + SEO</span>
+        <span class="ch">X</span>
+        <span class="ch">PR・メディア露出</span>
+      </div>
+    </div>
+    <div class="funnel-layer">
+      <div class="layer-title">Layer 4: リピート獲得（LTV最大化）← スマレジ連携の真価</div>
+      <p>来店顧客を常連化しLTVを最大化。新規獲得コストは既存維持の5〜25倍。</p>
+      <div class="channels">
+        <span class="ch">LINE公式</span>
+        <span class="ch">アプリREWARDS</span>
+        <span class="ch">スマレジ連携（データ駆動）</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ロードマップ -->
+<section>
+  <h2>実行ロードマップ</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot">P0</div>
+      <div class="tl-content">
+        <div class="tl-title">Phase 0: 即時着手</div>
+        <div class="tl-period">2026年3-4月 | コストほぼゼロ</div>
+        <ul>
+          <li>スマレジ移行完了・会員管理有効化</li>
+          <li>CSV手動連携で初期LTV分析</li>
+          <li>MEO全4店舗を最適化</li>
+          <li>LINE公式アカウント開設</li>
+          <li>X運用強化・口コミ獲得の仕組み化</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">P1</div>
+      <div class="tl-content">
+        <div class="tl-title">Phase 1: データ基盤完成</div>
+        <div class="tl-period">2026年5-6月</div>
+        <ul>
+          <li>スマレジAPI連携 → LTVが自動で見える状態に</li>
+          <li>KPIダッシュボード構築</li>
+          <li>LINEセグメント配信の本格運用</li>
+          <li>Meta広告テスト開始</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">P2</div>
+      <div class="tl-content">
+        <div class="tl-title">Phase 2: 施策最適化</div>
+        <div class="tl-period">2026年7-9月</div>
+        <ul>
+          <li>アプリAPI連携 → 全データ自動同期</li>
+          <li>チャネル別ROIに基づく予算最適化</li>
+          <li>休眠顧客の自動検知+自動配信</li>
+          <li>FC店舗間の勝ちパターン横展開</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">P3</div>
+      <div class="tl-content">
+        <div class="tl-title">Phase 3: スケール</div>
+        <div class="tl-period">2026年10月〜</div>
+        <ul>
+          <li>FC新規出店の標準マーケパッケージ化</li>
+          <li>データ実績を武器にFC営業を加速</li>
+          <li>全国展開</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 契約プラン -->
+<section>
+  <h2>契約プラン</h2>
+  <p>3つのパターンを用意しました。状況に合うものをお選びください。</p>
+
+  <div class="pricing">
+    <div class="plan">
+      <div class="plan-name">案A: 固定コンサル型</div>
+      <div class="plan-desc">コストが読める安心プラン</div>
+      <div class="plan-row"><span class="label">月額固定</span><span class="value">¥15〜20万</span></div>
+      <div class="plan-row"><span class="label">成果報酬</span><span class="value">なし</span></div>
+      <div class="plan-row"><span class="label">むさぽのリスク</span><span class="value">固定コスト発生</span></div>
+      <div class="plan-sim">
+        <div class="sim-title">売上回復シミュレーション</div>
+        <div class="sim-row"><span class="scenario">月売¥730万に回復</span><span class="amount">→ 報酬 ¥15〜20万</span></div>
+        <div class="sim-row"><span class="scenario">月売¥1,000万に回復</span><span class="amount">→ 報酬 ¥15〜20万（同額）</span></div>
+      </div>
+    </div>
+
+    <div class="plan recommended">
+      <div class="plan-name">案B: ハイブリッド型</div>
+      <div class="plan-desc">最低保証 + 成果連動。売上が伸びた分だけ報酬が増える</div>
+      <div class="plan-row"><span class="label">月額固定</span><span class="value">¥5〜10万（最低保証）</span></div>
+      <div class="plan-row"><span class="label">成果報酬</span><span class="value">改善額の 5〜8%</span></div>
+      <div class="plan-row"><span class="label">ベースライン</span><span class="value">直近3ヶ月平均（約¥730万）</span></div>
+      <div class="plan-row"><span class="label">むさぽのリスク</span><span class="value">低い（成果が出た分だけ追加）</span></div>
+      <div class="plan-sim">
+        <div class="sim-title">売上回復シミュレーション（ベースライン¥730万）</div>
+        <div class="sim-row"><span class="scenario">改善なし</span><span class="amount zero">→ ¥5〜10万（固定のみ）</span></div>
+        <div class="sim-row"><span class="scenario">月売¥900万（+¥170万）</span><span class="amount">→ 約¥15〜24万</span></div>
+        <div class="sim-row"><span class="scenario">月売¥1,000万（+¥270万）</span><span class="amount">→ 約¥19〜32万</span></div>
+        <div class="sim-row"><span class="scenario">月売¥1,100万（+¥370万）</span><span class="amount">→ 約¥24〜40万</span></div>
+      </div>
+    </div>
+
+    <div class="plan">
+      <div class="plan-name">案C: フルレベニューシェア型</div>
+      <div class="plan-desc">完全成果連動。成果が出なければ1円も払わない</div>
+      <div class="plan-row"><span class="label">月額固定</span><span class="value">¥0</span></div>
+      <div class="plan-row"><span class="label">成果報酬</span><span class="value">改善額の 10〜15%</span></div>
+      <div class="plan-row"><span class="label">むさぽのリスク</span><span class="value" style="color: #00d26a;">ゼロ</span></div>
+      <div class="plan-sim">
+        <div class="sim-title">売上回復シミュレーション（ベースライン¥730万）</div>
+        <div class="sim-row"><span class="scenario">改善なし</span><span class="amount zero">→ ¥0</span></div>
+        <div class="sim-row"><span class="scenario">月売¥900万（+¥170万）</span><span class="amount">→ ¥17〜25.5万</span></div>
+        <div class="sim-row"><span class="scenario">月売¥1,000万（+¥270万）</span><span class="amount">→ ¥27〜40.5万</span></div>
+        <div class="sim-row"><span class="scenario">月売¥1,100万（+¥370万）</span><span class="amount">→ ¥37〜55.5万</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FC -->
+<section>
+  <h2>FC全国展開 — 代理店契約</h2>
+  <p>渋谷店の成功モデルを武器に、FC加盟店の獲得・マーケ支援を行います。</p>
+
+  <div class="fc-section">
+    <h3 style="color: #fff; margin-top: 0;">FC代理店としての報酬構造</h3>
+    <div class="fc-grid">
+      <div class="fc-card">
+        <h4>FC獲得報酬</h4>
+        <p>新規FC加盟が成約した場合</p>
+        <p style="font-size: 1.5em; color: #e94560; font-weight: 800;">加盟金の30〜50%</p>
+        <p style="color: #888; font-size: 0.9em;">加盟金¥100〜300万 → 1件あたり¥30〜150万</p>
+        <p style="color: #666; font-size: 0.85em;">※冲啓太さんの代理店契約（50%）が前例</p>
+      </div>
+      <div class="fc-card">
+        <h4>FC店舗マーケ支援</h4>
+        <p>新店舗のマーケ基盤構築+運用</p>
+        <p style="font-size: 1.1em; color: #fff; font-weight: 600;">セットアップ: ¥30〜50万/店舗</p>
+        <p style="font-size: 1.1em; color: #fff; font-weight: 600;">月額運用: ¥5〜10万/店舗</p>
+        <p style="color: #888; font-size: 0.9em;">MEO・LINE・KPIダッシュボード・施策提案</p>
+      </div>
+    </div>
+
+    <h3 style="color: #fff; margin-top: 32px;">FC10店舗のシミュレーション</h3>
+    <div class="fc-grid">
+      <div class="fc-card">
+        <h4>むさぽ本部の収益</h4>
+        <p>加盟金: ¥1,000〜3,000万</p>
+        <p>ロイヤリティ: ¥560万/月</p>
+        <p>システム利用料: ¥200万/月</p>
+        <p style="color: #00d26a; font-weight: 700; font-size: 1.1em; margin-top: 12px;">月額 ¥760万のストック収益</p>
+      </div>
+      <div class="fc-card">
+        <h4>ikigaiの収益</h4>
+        <p>獲得報酬: ¥300〜1,500万（一括）</p>
+        <p>セットアップ: ¥300〜500万（一括）</p>
+        <p>月額運用: ¥50〜100万/月（ストック）</p>
+        <p style="color: #00d26a; font-weight: 700; font-size: 1.1em; margin-top: 12px;">FCが増えるほど双方がスケール</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta">
+    <h2>この戦略に、賭ける自信があります</h2>
+    <p style="margin-top: 16px;">渋谷店はピーク時に月商¥1,100万を出している。ポテンシャルはある。<br>
+    データ基盤 + 正しい施策で、売上は戻せる。<br><br>
+    「外注コンサル」ではなく<span style="font-weight: 700;">「成長に賭けるパートナー」</span>として、<br>
+    むさぽの全国展開を一緒に作りたい。</p>
+  </div>
+</section>
+
+</div>
+
+<div class="footer">
+  <p>むさぽ マーケティング戦略提案書 | 2026年3月 | ikigai Inc. 大竹ひろと</p>
+</div>
+
+</body>
+</html>
